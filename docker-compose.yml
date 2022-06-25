@@ -1,0 +1,23 @@
+---
+
+# Docker Compose for Duo Authentication Proxy 
+version: "3.8"
+services: 
+  duo:
+    build: .
+    container_name: duo
+    restart: always
+    ports: 
+      - "1813:1812/udp"
+      - "444:443/tcp"
+    volumes: 
+      - v_opt:/opt/duoauthproxy
+      - v_etc_systemmd:/etc/systemd/system/duoauthproxy.service
+      - v_lib_systemmd:/lib/systemd/system/duoauthproxy.service
+networks: 
+  default: 
+    name: duo_network 
+volumes: 
+  v_opt: {}
+  v_etc_systemmd: {}
+  v_lib_systemmd:  {}
